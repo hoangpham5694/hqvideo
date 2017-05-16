@@ -15,7 +15,7 @@
 @section('content')
 <div class="row">
 	<div class="col-md-8" ng-controller="VideoController">
-		<div id="listAutoPlay" data-ng-init="getListVideo('')">
+		<div id="listAutoPlay" data-ng-init="getListVideo({{$cate->id}})">
 			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-repeat="video in data" >
 				<div class="thumb">
 					<img class="img-responsive" ng-src="{{asset('upload/images/200x124')}}/{% video.image %}" alt="{% video.title  %}" />

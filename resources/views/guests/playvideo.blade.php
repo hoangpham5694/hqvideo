@@ -105,8 +105,8 @@
 			<div class="numbers">
 				
 			
-				<span  votes="164" score="0" title="Lượt xem"> <b><i class="fa fa-eye" aria-hidden="true"></i> {{ $video->view}} </b></span>
-				<span title="Lượt chia sẽ"><i class="fa fa-share-alt" aria-hidden="true"></i> <b>{{$video->share}}</b></span>
+				<span class="views" votes="164" score="0" title="Lượt xem"> <b> {{ $video->view}} </b></span>
+				<span class="comments"  title="Lượt comment"> <b><fb:comments-count href="{{url('xem-video')}}/{{$video->id}}/{{$video->slug}}.html"></fb:comments-count></b></span>
 
 			</div>
 			<div class="facebook-btn">
@@ -138,17 +138,17 @@
 		<ul id="new-videos" data-ng-init="getRandomVideo()">
 			<li class="right-p" ng-repeat="video in dataRandom">
 				<div class="mask">
-					<a href="{{ url('xem-video')}}/{% video.id %}/{% video.slug %}.html" class="jump_stop">
+					<a href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" class="jump_stop">
 						<img class="thumb" src="{{asset('upload/images/133x70')}}/{%video.image%}">
 						<div class="new">New</div>
 					</a>
 				</div>
 				<div class="info stats">
-					<a href="{{ url('xem-video')}}/{% video.id %}/{% video.slug %}.html" class="jump_stop">
+					<a href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" class="jump_stop">
 						<h4 class="truncate">{%video.title%}</h4>
 					</a>
-					<span id="view_count" class="view" score="0" title="Lượt xem"><i class="fa fa-eye" aria-hidden="true"></i> {% video.view %}</span>
-					<span id="share_count" title="Lượt chia sẽ"><i class="fa fa-share-alt" aria-hidden="true"></i> {% video.share %}</span>
+					<span id="view_count" class="view" score="0" title="Lượt xem"> {% video.view %}</span>
+					<span id="comment_count" title="Lượt commetn"> 0</span>
 				</div>
 				<div class="clear"> </div>
 			</li>
@@ -163,6 +163,22 @@
 
 @endsection
 @section('footer')
+<script>
+	function fbShare() {
+		var e =  "{{ url('xem-video')}}/{{ $video->id }}/{{ $video->slug }}.html?utm_source=Facebook&utm_medium=FacebookShare&utm_campaign=NextActivity";
+		var t = 626
+		  , o = 496
+		  , n = screen.width / 2 - t / 2
+		  , r = screen.height / 2 - o / 2 - 50;
+		window.open("https://www.facebook.com/sharer/sharer.php?u=" + e, "facebook-share-dialog", "width=" + t + ",height=" + o + ",top=" + r + ",left=" + n)
+	}
+	$("#shareResult").click(function(){
+		fbShare();
+		if (typeof ga === "function") { 
+			ga('send', 'event', 'share', 'click', '720');
+		}
+	});
+</script>
  <script  src="<?php echo asset('app/controller/guests/VideoController.js') ; ?>"> </script>
 @endsection
 

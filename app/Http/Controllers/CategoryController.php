@@ -20,7 +20,7 @@ class CategoryController extends Controller
     	$numberRecord= $max;
         $vitri =($page -1 ) * $numberRecord;
     	$cates = Category::leftJoin('video_cate','video_cate.cate_id','=','categories.id')
-    	->select('categories.id','categories.name',DB::raw('count(video_cate.id) as count_videos'))
+    	->select('categories.id','categories.name','categories.slug',DB::raw('count(video_cate.id) as count_videos'))
     //	->where('agencies.status','=','active')
     //	->where('courses.status','!=','delete')
     	->groupBy('categories.id')
@@ -36,6 +36,7 @@ class CategoryController extends Controller
     {
     	$cate = new Category();
     	$cate->name = $request->catename;
+        $cate->slug =str_slug($request->catename, "-");
     	$cate->save();
     	return "Thêm danh mục thành công";
     }
@@ -43,6 +44,7 @@ class CategoryController extends Controller
     {
     	$cate = Category::findOrFail($request->cateid);
     	$cate->name = $request->catename;
+        $cate->slug =str_slug($request->catename, "-");
     	$cate->save();
     	return "Sửa danh mục thành công";
     }

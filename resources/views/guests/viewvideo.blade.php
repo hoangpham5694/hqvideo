@@ -8,11 +8,11 @@
 	<link rel="stylesheet" href="{!! asset('template/css/mediaelementplayer.min.css') !!}">
 	<link rel="stylesheet" href="{!! asset('template/css/normalize.min.css') !!}">	
 	<link rel="stylesheet" href="{!! asset('template/css/teplayer.css') !!}">
-	    <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js" type="text/javascript"></script>
+	<script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js" type="text/javascript"></script>
 	<script src="http://lantoa.net/themes/modern/teplayer/jquery.js"></script>
 	<script src="{!! asset('template/js/_teplayer.min.js') !!}"></script>
 	<script src="{!! asset('template/js/mediaelement-and-player.js') !!}"></script>
-		<style>
+	<style>
 		body {
 			margin: 0;
 			padding: 0;
@@ -23,7 +23,8 @@
 		color: #fff;
 		position:absolute;
 		top: 40%;
-		left: 38%;		background: rgba(0,0,0,0.5);
+		<?php echo ( is_mobile() ? "left: 24%;" : "left: 38%;"); ?>
+		background: rgba(0,0,0,0.5);
 		padding: 10px;
 		display:none;
 	}
@@ -47,13 +48,14 @@
 			  }
 			],
 			width: '779',
-			height:'449',			responsive: true,
+			<?php echo (is_mobile() ?  "height:'799'," :  "height:'449',");?>
+			responsive: true,
 			mobileNativeControl: false,
 			title: "",
 			poster: "{{ asset('upload/images/260x137')}}/{!! $video->image !!}",
 			name: "Lantoa.net",
-			site_url: "http://lantoa.net/",
-			video_url: "http://lantoa.net/",
+			site_url: "http://video.hqapps.net/",
+			video_url: "http://videos.hqapps.net/",
 			//embed_url: "",
 			logo: "http://Theme::asset.lantoa.net/assets/img/logo.png",
 			adLabel: "Quảng cáo",

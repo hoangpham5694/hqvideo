@@ -39,10 +39,17 @@ a:hover{
     color: #FFFFFF;
     font-size: 1.2em;
 }
+
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
     color: #FFFFFF;
     background: #1A3C6C;
 }
+/*
+.navbar-default .navbar-nav a>.active, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+    color: #FFFFFF;
+    background: #1A3C6C;
+}
+*/
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
     color: #FFFFFF;
     background-color: #5272B6;
@@ -129,12 +136,12 @@ a.nextPage {
     font-size: 15px;
 }
 .stats .views {
-    background: url(../images/view.png) no-repeat transparent;
+    background: url(/images/view.png) no-repeat transparent;
     padding-left: 18px;
     margin-right: 10px;
 }
 .stats .comments {
-    background: url(../images/comment.png) no-repeat 0px 2px transparent;
+    background: url(/images/comment.png) no-repeat 0px 2px transparent;
     background-size: 14px;
     padding-left: 18px;
     margin-right: 10px;
@@ -266,20 +273,20 @@ a.nextPage {
 }
 
 #view_count {
-	
+	background: url("/images/view_count.png") no-repeat scroll 0 0 transparent;
 	padding-left: 18px;
 	font-size: 12px;
 	color: #999999;
 	margin-right: 5px;
 }
 #comment_count {
-
+    background: url("/images/comment_count.png") no-repeat scroll 0 0 transparent;
 	padding-left: 18px;
 	color: #999999;
 	font-size: 12px;
 }
 #share_count {
-
+    background: url("/images/share.png") no-repeat scroll 0 0 transparent;
     padding-left: 18px;
     color: #999999;
     font-size: 12px;
@@ -411,7 +418,7 @@ a.nextPage {
 	overflow: hidden;
 	display: -webkit-box;
 	max-width: 100%;
-	height: 48px;
+	height: 37px;
 	margin: 0 auto;
 	font-size: 16px;
 	line-height: 1;
@@ -505,7 +512,7 @@ a.nextPage {
     top: 0;
     text-align: center;
     transform: scale(0);
-    background-image: url(../images/big-play.png);
+    background-image: url(/images/big-play.png);
     background-repeat: no-repeat;
     background-position: center center;
 }

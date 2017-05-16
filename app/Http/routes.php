@@ -12,15 +12,18 @@
 */
 
 Route::get('/', ['uses' => 'HomeController@getIndex']);
-Route::get('xem-video/{id}/{alias}', ['uses' => 'HomeController@getPlayVideo']);
+
+Route::get('{cateslug}.{cateid}', ['uses' => 'HomeController@getListVideoWithCate']);
 Route::get('viewvideo/{id}', ['uses' => 'HomeController@getViewVideo']);
+Route::get('xem-video/{alias}.{id}', ['uses' => 'HomeController@getPlayVideo']);
 Route::get('test', function() {
     return view('guests.master1');
 });
 Route::group(['prefix' => 'guest-ajax'], function(){
     Route::get('list/{max}/{page}',['uses'=>'VideoController@getVideoListAjax']);
     Route::get('total',['uses'=>'VideoController@getTotalVideosAjax']);
-    Route::get('randomvideo/{number}',['uses'=>'VideoController@getRandomVideosAjax']);          
+    Route::get('randomvideo/{number}',['uses'=>'VideoController@getRandomVideosAjax']);  
+    Route::get('listcate/{max}/{page}',['uses'=>'CategoryController@getCateListAjax']);        
 });
 Route::get('test1',['uses'=>'VideoController@getTest']);
 //Route::get('index',['uses'])

@@ -12,7 +12,7 @@
 
  <meta name   ="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
  <link rel="shortcut icon" href="{{ asset('photos/icon.png') }}">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body ng-app="my-app">
   <div id="fb-root"></div>
@@ -40,10 +40,20 @@
           <span class="icon-bar"></span>
         </button>
       </div>
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="http://cliphq.net/top">Top <span class="label label-danger">New</span></a></li>
-          <li><a href="http://cliphq.net/c/funny">Funny</a></li><li><a href="http://cliphq.net/c/thoi-su">Thời sự</a></li><li><a href="http://cliphq.net/c/doi-song">Đời sống</a></li><li><a href="http://cliphq.net/c/giao-thong">Giao thông</a></li><li><a href="http://cliphq.net/c/tinh-yeu">Tình yêu</a></li>      </ul>
+      <div class="collapse navbar-collapse navbar-ex1-collapse" ng-controller="CateListController">
+
+        <ul class="nav navbar-nav" data-ng-init="getCateList()">
+          <li><a href="">Top <span class="label label-danger">New</span></a></li>
+            <?php 
+              if(isset($cate)){
+                $cateId = $cate->id;
+              }else{
+                $cateId= 0;
+              }
+            ?>
+          <li ng-repeat="cate in categories" ng-class="{active: cate.id == {{$cateId}}}" >
+            <a href="{{url('/')}}/{%cate.slug%}.{%cate.id%}.html"  >{%cate.name%} </a>
+          </li>
         </div><!-- /.navbar-collapse -->
       </div>
     </nav>
@@ -76,15 +86,13 @@
 
 
 
- <script src="<?php echo asset('template/vendor/jquery/jquery.min.js') ; ?>"></script>
 
- <!-- Bootstrap Core JavaScript -->
- <script src="<?php echo asset('template/vendor/bootstrap/js/bootstrap.min.js') ; ?>"></script>
 
  <!-- Metis Menu Plugin JavaScript -->
 
  <script src="<?php echo asset('app/lib/angular.min.js') ; ?>"></script>
- <script src="<?php echo asset('app/app.js') ; ?>"></script>      
+ <script src="<?php echo asset('app/app.js') ; ?>"></script>     
+<script src="<?php echo asset('app/controller/guests/CateListController.js') ; ?>"></script>    
         @yield('footer')      
         </body>
         </html>
