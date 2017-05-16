@@ -225,7 +225,7 @@ class VideoController extends Controller
     public function getRandomVideosAjax($number)
     {
         $numberRecord = $number;
-        $video = Video::select('id','title','description','slug','view','image','url','created_at')->inRandomOrder()->limit($numberRecord)->offset(0)->get();;
+        $video = Video::select('id','title','description','slug','view','share','image','url','created_at')->inRandomOrder()->limit($numberRecord)->offset(0)->get();;
         return json_encode($video);
     }
 }

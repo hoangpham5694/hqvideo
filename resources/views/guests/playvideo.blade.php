@@ -103,8 +103,11 @@
 	<div class="postinfo">
 		<div class="stats">
 			<div class="numbers">
-				<span class="views" votes="164" score="0" title="Lượt xem"> <b>164</b></span>
-				<span class="comments" title="Bình luận"> <b>0</b></span>
+				
+			
+				<span  votes="164" score="0" title="Lượt xem"> <b><i class="fa fa-eye" aria-hidden="true"></i> {{ $video->view}} </b></span>
+				<span title="Lượt chia sẽ"><i class="fa fa-share-alt" aria-hidden="true"></i> <b>{{$video->share}}</b></span>
+
 			</div>
 			<div class="facebook-btn">
 				<iframe src="https://www.facebook.com/plugins/like.php?href=http://cliphq.net/video/719&amp;width=450&amp;layout=standard&amp;action=like&amp;size=small&amp;show_faces=false&amp;share=false&amp;height=35&amp;appId" width="450" height="35" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
@@ -132,7 +135,7 @@
 </div>
 <div class="col-md-4" ng-controller="VideoController">
 	<div class="right-ovui videonew">
-		<ul id="new-videos">
+		<ul id="new-videos" data-ng-init="getRandomVideo()">
 			<li class="right-p" ng-repeat="video in dataRandom">
 				<div class="mask">
 					<a href="{{ url('xem-video')}}/{% video.id %}/{% video.slug %}.html" class="jump_stop">
@@ -144,8 +147,8 @@
 					<a href="{{ url('xem-video')}}/{% video.id %}/{% video.slug %}.html" class="jump_stop">
 						<h4 class="truncate">{%video.title%}</h4>
 					</a>
-					<span id="view_count" class="view" score="0" title="Lượt xem">{% video.view %}</span>
-					<span id="comment_count" title="Bình luận">0</span>
+					<span id="view_count" class="view" score="0" title="Lượt xem"><i class="fa fa-eye" aria-hidden="true"></i> {% video.view %}</span>
+					<span id="share_count" title="Lượt chia sẽ"><i class="fa fa-share-alt" aria-hidden="true"></i> {% video.share %}</span>
 				</div>
 				<div class="clear"> </div>
 			</li>

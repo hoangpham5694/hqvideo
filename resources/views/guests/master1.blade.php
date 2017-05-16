@@ -8,7 +8,7 @@
 
  <link href="<?php echo asset('template/vendor/bootstrap/css/bootstrap.min.css') ; ?>" rel="stylesheet">
  <!--<link rel    ="stylesheet" href="{!! asset('template/css/guest.css')!!}">    -->
-<link href="http://cliphq.net/css/style.css?v2" media="screen" rel="stylesheet" type="text/css">
+<link href="{{asset('template/css/guestv2.css')}}" media="screen" rel="stylesheet" type="text/css">
 
  <meta name   ="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
  <link rel="shortcut icon" href="{{ asset('photos/icon.png') }}">
@@ -62,39 +62,11 @@
             </div>
           </div>
           <div id="footer">
-            <div class="fa-footer container">
-              <div class="footer-help pull-left">
 
-              </div>
-              <div class="footer-help pull-right">
-                © Copyright
-              </div>
-            </div>
           </div>
-          <div id="btn-goto-top" class="ui icon orange button scrollToTop " style="display: block;">
-            <i class="glyphicon glyphicon-menu-up"></i>
-          </div>
+
           <div class="modal"><!-- Place at bottom of page --></div>
           <script>
-          var toogle = true;
-          $(document).ready(function() {
-            $(".search-panel-btn").click(function() {
-              if(toogle){
-                $(".search-panel").css("display","block");
-                toogle = false;
-              }else{
-               $(".search-panel").css("display","none");
-               toogle = true;
-             }
-
-
-           });
-            $("#btn-goto-top").click(function() {
-              $("html, body").animate({ scrollTop: 0 }, "slow");
-              return false;
-            });
-
-          });
 
           </script>
    

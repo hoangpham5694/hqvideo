@@ -1,21 +1,22 @@
 app.controller('VideoController', function($scope ,$http,$location, API){
 	var page = 1;
-	var pagehot = 1;
-	var end= true;
+	$scope.page = page;
+	$scope.end= true;
 	var maxRecord = 20 	;
 	$scope.maxRecord = maxRecord;
 	var getVideos = function(){
 		var url = API+ "guest-ajax/list/"+maxRecord+"/"+page;
+		console.log(url);
 		$http.get(url).then(function successCallback (response){
 		console.log(response);
 		console.log(page);
 		$scope.data =   response.data;
-		if(response.data.length < 12){
+		if(response.data.length < maxRecord){
   			//page--;
-  			end= true;
+  			$scope.end= true;
   			//$scope.message = "Hết dữ liệu vui lòng quay lại";
   		}else{
-  			end= false;
+  			$scope.end= false;
   		}
 		}  , function errorCallback(response) {
     // called asynchronously if an error occurs
@@ -80,18 +81,25 @@ app.controller('VideoController', function($scope ,$http,$location, API){
 	
 	//$scope.name="hoang";
 	console.log(page);
-	getVideos();
-	getVideoRandom();
+//	getVideos();
+//	getVideoRandom();
+	$scope.getListVideo = function(){
+		getVideos();
+	}
+	$scope.getRandomVideo = function(){
+		getVideoRandom();
+	}
 	$scope.nextpage = function(state){
 
 		//console.log("click");
 		$scope.state = state;
-		console.log(state);
+		console.log($scope.end);
 		switch (state){
 			case "new":
-				if(!end){
+				if(!$scope.end){
 					page++;
 					getVideos();	
+					$scope.page = page;
 				}
 				
 				break;
@@ -120,6 +128,7 @@ app.controller('VideoController', function($scope ,$http,$location, API){
 			
 				
 					getVideos();	
+					$scope.page = page;
 				break;
 			case "hot":
 				pagehot++;
