@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Storage;
 use Google_Client; 
 use Google_Service_Drive;
 use Intervention\Image\Facades\Image;
+use FFMpeg;
+use Psr\Logger\LoggerInterface;
 class VideoController extends Controller
 {
 	public function getVideoListManager()
@@ -36,7 +38,7 @@ class VideoController extends Controller
 
     	$videos = Video::join('users','users.id','=','videos.created_by')
     	->leftJoin('video_cate','video_cate.video_id','=','videos.id')
-    	->select('videos.id','videos.slug','videos.image','users.firstname','videos.created_at','users.lastname','users.username','videos.title','videos.url','videos.view','videos.share')
+    	->select('videos.id','videos.slug','videos.duration','videos.image','users.firstname','videos.created_at','users.lastname','users.username','videos.title','videos.url','videos.view','videos.share')
         ->where(function($query) use ($keyword){
             $query->where('videos.title','LIKE','%'.$keyword.'%');
         })
@@ -93,7 +95,7 @@ class VideoController extends Controller
             $video->image= $filename;
         }
         
-		$video->duration = "";
+		$video->duration = $request->txtDuration;
 		$video->save();
 		foreach($cates as $value){
 			$videoCate = new VideoCate();
@@ -117,13 +119,30 @@ class VideoController extends Controller
             $filename = "hqapp_net.".$file->getClientOriginalExtension();;
             $destinationPath = 'upload/videos/'.time().'_'.str_slug($file->getClientOriginalName(), "-");
             $file->move($destinationPath,$filename);
-           // $video->url= $filename;
-      //      $disk = Storage::disk('local');
-         //   $disk->put($filename, fopen($file, 'r+'));
-        //    Storage::disk('google')->put($filename,  fopen($file, 'r+'));
-         //   $url = Storage::disk('google')->url($filename);
-            return asset($destinationPath).'/'.$filename;
-            return $url;
+         //  Storage::disk('google')->put($filename,  fopen($file, 'r+'));
+         //  $url = Storage::disk('google')->url($filename);
+            $ffprobe = FFMpeg\FFProbe::create(
+                [
+                'ffmpeg.binaries'  => 'd:\ffmpeg\bin\ffmpeg.exe',
+                'ffprobe.binaries' => 'd:\ffmpeg\bin\ffprobe.exe',
+                'timeout'          => 7200, // the timeout for the underlying process
+                'ffmpeg.threads'   => 1,   // the number of threads that FFMpeg should use
+            ]);
+
+            $duration = $ffprobe->format(asset($destinationPath).'/'.$filename)->get('duration'); 
+
+            $duration = (int)$duration;
+
+            $sec= $duration%60;
+            $min = ($duration - $sec)/60;
+            $returnDuration = $min.':'.$sec;
+
+
+        return json_encode(['url'=>asset($destinationPath).'/'.$filename,'duration'=>$returnDuration]);
+
+
+
+
         }else{
             return "Tải lên không thành công";
         }
@@ -184,7 +203,7 @@ class VideoController extends Controller
             $img->save($destinationPath.'/133x70/'.$filename);
             $video->image= $filename;
         }
-		$video->duration = "";
+		$video->duration = $request->txtDuration;
 		$video->save();
          $cates = VideoCate::join("categories",'categories.id','=','video_cate.cate_id')
         ->select('video_cate.id','categories.name','video_cate.video_id')

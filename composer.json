@@ -8,7 +8,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "nao-pon/flysystem-google-drive": "~1.1",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "php-ffmpeg/php-ffmpeg": "^0.9.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

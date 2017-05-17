@@ -4,7 +4,7 @@
 	<meta property="og:image" content="{!! asset('upload/images')!!}/{!! $video->image!!}" />
 <title>{{ $title }} - HQApps</title>
 
-
+ <script  src="<?php echo asset('template/js/jquery.min.js') ; ?>"> </script>
 
 <style>
 	
@@ -139,7 +139,7 @@
 			<li class="right-p" ng-repeat="video in dataRandom">
 				<div class="mask">
 					<a href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" class="jump_stop">
-						<img class="thumb" src="{{asset('upload/images/133x70')}}/{%video.image%}">
+						<img class="thumb" ng-src="{{asset('upload/images/133x70')}}/{%video.image%}">
 						<div class="new">New</div>
 					</a>
 				</div>
@@ -172,13 +172,18 @@
 		  , r = screen.height / 2 - o / 2 - 50;
 		window.open("https://www.facebook.com/sharer/sharer.php?u=" + e, "facebook-share-dialog", "width=" + t + ",height=" + o + ",top=" + r + ",left=" + n)
 	}
-	$("#shareResult").click(function(){
+	$( document ).ready(function() {
+    	$("#shareResult").click(function(){
 		fbShare();
 		if (typeof ga === "function") { 
 			ga('send', 'event', 'share', 'click', '720');
 		}
+		});
 	});
+	
+
 </script>
- <script  src="<?php echo asset('app/controller/guests/VideoController.js') ; ?>"> </script>
+<script  src="<?php echo asset('app/controller/guests/VideoController.js') ; ?>"> </script>
+
 @endsection
 

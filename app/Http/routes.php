@@ -16,7 +16,7 @@ Route::get('/', ['uses' => 'HomeController@getIndex']);
 Route::get('{cateslug}.{cateid}', ['uses' => 'HomeController@getListVideoWithCate']);
 Route::get('viewvideo/{id}', ['uses' => 'HomeController@getViewVideo']);
 Route::get('xem-video/{alias}.{id}', ['uses' => 'HomeController@getPlayVideo']);
-Route::get('test', function() {
+Route::get('testupload', function() {
     return view('guests.master1');
 });
 Route::group(['prefix' => 'guest-ajax'], function(){

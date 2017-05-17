@@ -19,7 +19,7 @@
 			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-repeat="video in data" >
 				<div class="thumb">
 					<img class="img-responsive" ng-src="{{asset('upload/images/200x124')}}/{% video.image %}" alt="{% video.title  %}" />
-					<div class="duration">190</div>
+					<div class="duration">{%video.duration%}</div>
 					<a target="_blank" class="hover-posts" href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" title="{% video.title %}"><span></span>
 						<div class="videoinfo">
 							
@@ -65,6 +65,19 @@
 				</li>
 			</ol>
 	</div>
+
+	<div class="col-md-4 hidden-xs hidden-xs">
+			<div class="rightfixed">
+			<!--Ads-->
+			
+			</div>
+			<div class="social-block">
+				<h3>Like để nhận những clip hay :)</h3>
+				<div class="facebook-like">
+					<div class="fb-like fb_iframe_widget" data-href="http://www.facebook.com/vivivuvu.net" data-send="false" data-width="300" data-show-faces="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;container_width=360&amp;href=http%3A%2F%2Fwww.facebook.com%2Fvivivuvu.net&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=true&amp;width=300"><span style="vertical-align: bottom; width: 300px; height: 28px;"><iframe name="f2a353c5eab16c4" width="300px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="https://www.facebook.com/plugins/like.php?app_id=&amp;channel=http%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2FJtmcTFxyLye.js%3Fversion%3D42%23cb%3Df34be638a6bb24%26domain%3Dcliphq.net%26origin%3Dhttp%253A%252F%252Fcliphq.net%252Ff25fb5f09469b4%26relation%3Dparent.parent&amp;container_width=360&amp;href=http%3A%2F%2Fwww.facebook.com%2Fvivivuvu.net&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=true&amp;width=300" style="border: none; visibility: visible; width: 300px; height: 28px;" class=""></iframe></span></div>
+				</div>
+			</div>
+		</div>
 
 
 </div>
