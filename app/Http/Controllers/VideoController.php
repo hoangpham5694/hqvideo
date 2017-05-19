@@ -32,19 +32,24 @@ class VideoController extends Controller
         $vitri =($page -1 ) * $numberRecord;
  		$cateId = $request->cateid;
     	$keyword = $request->key;
+        $status = $request->status;
         if($cateId == ""){
             $cateId = null;
+        }
+        if($status == ""){
+            $status = null;
         }
 
     	$videos = Video::leftJoin('video_cate','video_cate.video_id','=','videos.id')
    //     ->leftjoin('categories','categories.id','=','video_cate.cate_id')
         ->join('users','users.id','=','videos.created_by')
     	
-    	->select('videos.id','videos.slug','videos.duration','videos.image','users.firstname','videos.created_at','users.lastname','users.username','videos.title','videos.url','videos.view','videos.share')
+    	->select('videos.id','videos.slug','videos.duration','videos.image','users.firstname','videos.created_at','users.lastname','users.username','videos.title','videos.url','videos.status','videos.view','videos.share')
         ->where(function($query) use ($keyword){
             $query->where('videos.title','LIKE','%'.$keyword.'%');
         })
         ->where('video_cate.cate_id','LIKE', $cateId)
+        ->where('videos.status','LIKE', $status)
     	->limit($numberRecord)->offset($vitri)    
     	->orderBy('videos.id','DESC')	
     	->groupBy('videos.id')
@@ -76,6 +81,7 @@ class VideoController extends Controller
     	$video->url=$request->txtUrl;
 		$video->created_by= $user->id;
 		$cates = $request->cblCate;
+        $video->status = "pending";
 		//dd($cates);
 		 $file = $request->file('fileImage');
      //   dd(strlen($file));
@@ -257,4 +263,26 @@ class VideoController extends Controller
         $video = Video::select('id','title','description','slug','view','share','image','url','created_at')->inRandomOrder()->limit($numberRecord)->offset(0)->get();;
         return json_encode($video);
     }
+
+    public function getNewVideosAjax($number)
+    {
+        $numberRecord = $number;
+        $video = Video::select('id','title','description','slug','view','share','image','url','created_at')
+        ->where('status','=','active')
+        ->limit($numberRecord)->offset(0)->orderBy('id','DESC')->get();;
+        return json_encode($video);
+    }
+    public function getHotVideosAjax($number)
+    {
+        $numberRecord = $number;
+        $video = Video::select('id','title','description','slug','view','share','image','url','created_at')
+        ->where('status','=','active')
+        ->limit($numberRecord)->offset(0)->orderBy('view','DESC')->get();;
+        return json_encode($video);
+    }
+
+
+
+
+
 }

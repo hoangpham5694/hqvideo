@@ -17,8 +17,11 @@ class HomeController extends Controller
     public function getPlayVideo($alias,$id )
     {
       $video = Video::findOrFail($id);
+      if($video->status=="stop"){
+        return view('errors.404',['message'=>'Xin lỗi, nội dung bạn tìm kiếm hiện không tồn tại']);
+      }
       $video->view++;
-      $video->save();
+      $video->save(); 
       return view('guests.playvideo',['video'=>$video]);
     }
     public function getViewVideo($id)
@@ -31,4 +34,5 @@ class HomeController extends Controller
         $cate = Category::findOrFail($cateid);
         return view('guests.listvideo',['cate'=>$cate]);
     }
+    
 }

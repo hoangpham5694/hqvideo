@@ -2,6 +2,7 @@ app.controller('VideoListController', function($scope, $http, API,$timeout){
 	var maxRecord = 20 	;
 	$scope.maxRecord = maxRecord;
 	$scope.sltCateId = "";
+	$scope.sltStatus = "";
 	$scope.txtKeyword = "";
 	 var getTotalVideos = function(){
 	 	$http.get(API + 'managersites/video/ajax/total').then(function successCallback (response){
@@ -17,7 +18,7 @@ app.controller('VideoListController', function($scope, $http, API,$timeout){
   		}) ;
 	 }
 	var getListVideos = function (max, page){
-		var url=API + 'managersites/video/ajax/list/'+max+'/'+page+"?cateid="+$scope.sltCateId+"&key="+$scope.txtKeyword;
+		var url=API + 'managersites/video/ajax/list/'+max+'/'+page+"?cateid="+$scope.sltCateId+"&key="+$scope.txtKeyword+"&status="+$scope.sltStatus;
 		console.log(url);
 		$http.get(url).then(function successCallback (response){
 		getTotalVideos();
@@ -58,6 +59,9 @@ app.controller('VideoListController', function($scope, $http, API,$timeout){
 
 
 	$scope.changeKey = function(){
+		getListVideos(maxRecord,1);
+	}
+	$scope.changeStatus = function() {
 		getListVideos(maxRecord,1);
 	}
 

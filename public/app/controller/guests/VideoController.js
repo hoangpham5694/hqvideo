@@ -5,8 +5,9 @@ app.controller('VideoController', function($scope ,$http,$location, API){
 	var maxRecord = 20 	;
 	$scope.maxRecord = maxRecord;
 	$scope.cateid = "";
+	$scope.status = "active";
 	var getVideos = function(){
-		var url = API+ "guest-ajax/list/"+maxRecord+"/"+page+"?cateid="+$scope.cateid;
+		var url = API+ "guest-ajax/list/"+maxRecord+"/"+page+"?cateid="+$scope.cateid+"&status="+$scope.status;
 		console.log(url);
 		$http.get(url).then(function successCallback (response){
 		console.log(response);

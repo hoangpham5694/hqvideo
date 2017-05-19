@@ -4,41 +4,36 @@
 	<meta property="og:image" content="{!! asset('upload/images')!!}/{!! $video->image!!}" />
 	<meta property="og:title" content="{!! $video->title!!}">
 	<meta property="og:description" content="{!! $video->description!!}">
-<title>{{ $title }} - Video-HQApps</title>
+	<title>{{ $title }} - Video-HQApps</title>
+	<style>
+	.ng-hide {
+	  height: 0;
+	  width: 0;
+	  background-color: transparent;
+	  top:-200px;
+	  left: 200px;
+	}
+	.main-top .game .loading-game{
+		text-align: center;
+		height: 400px;	
+	}
+	.main-top .game .loading-game img{
+		width:100px;
 
- <script  src="<?php echo asset('template/js/jquery.min.js') ; ?>"> </script>
+	}
+	.begin-game{
+		height:400px;
+		padding-top: 150px;
 
-<style>
-	
-	
-.ng-hide {
-  height: 0;
-  width: 0;
-  background-color: transparent;
-  top:-200px;
-  left: 200px;
-}
-.main-top .game .loading-game{
-	text-align: center;
-	height: 400px;	
-}
-.main-top .game .loading-game img{
-	width:100px;
-
-}
-.begin-game{
-	height:400px;
-	padding-top: 150px;
-
-	background: url("{!! asset('public/mh94_guest/images/bg1.svg')!!}");
-}
-.game-result{
-	width:730px;
-}
-#canvas-img img{
-	width:100%;
-}
-</style>
+		background: url("{!! asset('public/mh94_guest/images/bg1.svg')!!}");
+	}
+	.game-result{
+		width:730px;
+	}
+	#canvas-img img{
+		width:100%;
+	}
+	</style>
 	<style>
 		body {
 			margin: 0;
@@ -50,11 +45,19 @@
 		color: #fff;
 		position:absolute;
 		top: 40%;
-		left: 38%;		background: rgba(0,0,0,0.5);
+		<?php echo ( is_mobile() ? "left: 24%;" : "left: 38%;"); ?>
+		background: rgba(0,0,0,0.5);
 		padding: 10px;
 		display:none;
 	}
 	</style>
+	<link rel="stylesheet" href="{!! asset('template/css/mediaelementplayer.min.css') !!}">
+	<link rel="stylesheet" href="{!! asset('template/css/normalize.min.css') !!}">	
+	<link rel="stylesheet" href="{!! asset('template/css/teplayer.css') !!}">
+	<script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js" type="text/javascript"></script>
+	<script src="http://lantoa.net/themes/modern/teplayer/jquery.js"></script>
+	<script src="{!! asset('template/js/_teplayer.min.js') !!}"></script>
+	<script src="{!! asset('template/js/mediaelement-and-player.js') !!}"></script>
 	@endsection
 @section('content')
 
@@ -79,19 +82,77 @@
 </ol>
 
 <div class="row post">
+	
+	<div class="postcontainer">
+		<div id='teplayer' class='te-player-container'></div>
+		<script>
+			var lantoa_video_start = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=2246899727&videoad_start_delay=0&hl=vi&max_ad_duration=15000";
+			var lantoa_video_pause = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=3723632924&videoad_start_delay=10000&hl=vi&max_ad_duration=15000";
+			var lantoa_video_end = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=5200366125&videoad_start_delay=-1&hl=vi&max_ad_duration=15000";
+			var opt = {
+				id: 'video_player',
+				key: "OTdiNmUyMTk1ZGM4MTU4YzYzN2ZiNmJhM2Q5NmZkYjBhYzIzYjc2MTBiZjc5Y2QxYmRiYzEzODQwYmJhYWFjZQ==",
+				locale: "vi",
+				theme: "white", //default, black, red, white, yellow, green, dark-green, blue, dark-blue, pink
+				sources: [
+				  {
+					src: "{!! $video->url !!}",
+					type: "video/mp4",
+				  }
+				],
+				width: '779',
+				<?php echo (is_mobile() ?  "height:'799'," :  "height:'449',");?>
+				responsive: true,
+				mobileNativeControl: false,
+				title: "",
+				poster: "{{ asset('upload/images/260x137')}}/{!! $video->image !!}",
+				name: "Lantoa.net",
+				site_url: "http://video.hqapps.net/",
+				video_url: "http://videos.hqapps.net/",
+				//embed_url: "",
+				logo: "http://Theme::asset.lantoa.net/assets/img/logo.png",
+				adLabel: "Quảng cáo",
+				isAds: true,
+				pre: {
+					status: true,
+					tag: lantoa_video_start,
+					forceNonLinearFullSlot: true,
+				},
+				// mid: {
+					// status: true,
+					// tag: lantoa_video_pause,
+					// forceNonLinearFullSlot: true,
+				// },
+				post: {
+					status: true,
+					tag: lantoa_video_end,
+					forceNonLinearFullSlot: true,
+				},
+				
+				controls_videos: true,
+				//last_videos: true,
+				videos_type: "default",
+				autoPlay: true, 
+				engageya: {
+					pubid: 169635,
+					wid: 94977,
+					webid: 137609
+				},
+				//video_items: 8,
+				mobile_theme: true,
+				debug: true
+
+			};
+
+			window.onload = function() {
+				TE.createPlayer(opt);
+			};
+		</script>
+	</div>
 	<div class="postinfo">
 		<h3>{{ $video->title}}</h3>
 	</div>
-	<div class="movieLoader" data-movie="719">
-<div class="postcontainer">
-	<center>
-		<div class="video">
-	<iframe src="{{ url('viewvideo')}}/{!! $video->id !!}" width="100%" onload="this.style.height=this.contentDocument.body.scrollHeight +'px';" scrolling="no" frameborder="0" allowfullscreen=""></iframe>  
-		</div>
-	</center>
-</div>
-
-</div>	<div id="shareResult" class="facebook_share">
+	<div id="shareResult" class="facebook_share">
 		<i class="fb_f"></i>
 		<span>Chia sẻ lên Facebook</span>
 	</div>

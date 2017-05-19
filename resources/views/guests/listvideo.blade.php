@@ -20,14 +20,14 @@
 				<div class="thumb">
 					<img class="img-responsive" ng-src="{{asset('upload/images/200x124')}}/{% video.image %}" alt="{% video.title  %}" />
 					<div class="duration">{%video.duration%}</div>
-					<a target="_blank" class="hover-posts" href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" title="{% video.title %}"><span></span>
+					<a target="_blank" class="hover-posts" ng-href="{{url('video')}}/{%video.slug%}.{%video.id%}.html" title="{% video.title %}"><span></span>
 						<div class="videoinfo">
 							
 						</div>
 						<div class="videoplayer"></div>
 					</a>
 				</div>
-				<h4 class="truncate"><a target="_blank" href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html">{% video.title | cut:true:50:' ...' %}</a></h4>
+				<h4 class="truncate"><a target="_blank" ng-href="{{url('video')}}/{%video.slug%}.{%video.id%}.html">{% video.title | cut:true:50:' ...' %}</a></h4>
 			</div>
 			<div class="clearfix"></div>
 			<div id="paging-buttons" class="paging-buttons">

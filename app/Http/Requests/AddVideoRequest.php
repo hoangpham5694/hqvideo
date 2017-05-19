@@ -24,6 +24,7 @@ class AddVideoRequest extends Request
     public function rules()
     {
         return [
+            'cblCate' =>'required',
             'txtTitle'=>'required',
             'txtUrl'=>'required',
         ];

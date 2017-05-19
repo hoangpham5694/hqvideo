@@ -24,6 +24,7 @@ class EditVideoRequest extends Request
     public function rules()
     {
        return [
+             'cblCate' =>'required',
             'txtTitle'=>'required',
         ];
     }
