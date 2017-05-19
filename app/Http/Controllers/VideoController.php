@@ -36,8 +36,10 @@ class VideoController extends Controller
             $cateId = null;
         }
 
-    	$videos = Video::join('users','users.id','=','videos.created_by')
-    	->leftJoin('video_cate','video_cate.video_id','=','videos.id')
+    	$videos = Video::leftJoin('video_cate','video_cate.video_id','=','videos.id')
+   //     ->leftjoin('categories','categories.id','=','video_cate.cate_id')
+        ->join('users','users.id','=','videos.created_by')
+    	
     	->select('videos.id','videos.slug','videos.duration','videos.image','users.firstname','videos.created_at','users.lastname','users.username','videos.title','videos.url','videos.view','videos.share')
         ->where(function($query) use ($keyword){
             $query->where('videos.title','LIKE','%'.$keyword.'%');
@@ -123,8 +125,8 @@ class VideoController extends Controller
          //  $url = Storage::disk('google')->url($filename);
             $ffprobe = FFMpeg\FFProbe::create(
                 [
-                'ffmpeg.binaries'  => 'd:\ffmpeg\bin\ffmpeg.exe',
-                'ffprobe.binaries' => 'd:\ffmpeg\bin\ffprobe.exe',
+                 'ffmpeg.binaries'  => '/usr/bin/ffmpeg',
+                 'ffprobe.binaries' => '/usr/bin/ffprobe',
                 'timeout'          => 7200, // the timeout for the underlying process
                 'ffmpeg.threads'   => 1,   // the number of threads that FFMpeg should use
             ]);
@@ -134,7 +136,15 @@ class VideoController extends Controller
             $duration = (int)$duration;
 
             $sec= $duration%60;
+            
             $min = ($duration - $sec)/60;
+            if($sec < 10){
+                $sec= "0".$sec;
+            }
+            if($min < 10){
+                $min= "0".$min;
+            }
+            
             $returnDuration = $min.':'.$sec;
 
 

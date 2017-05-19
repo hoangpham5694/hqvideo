@@ -17,6 +17,8 @@ class HomeController extends Controller
     public function getPlayVideo($alias,$id )
     {
       $video = Video::findOrFail($id);
+      $video->view++;
+      $video->save();
       return view('guests.playvideo',['video'=>$video]);
     }
     public function getViewVideo($id)

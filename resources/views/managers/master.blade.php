@@ -140,7 +140,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo asset('template/dist/js/sb-admin-2.js') ; ?>"></script>
     <script src="<?php echo asset('app/lib/angular.min.js') ; ?>"></script>
-    <script src="<?php echo asset('app/app.js') ; ?>"></script>   
+    <script src="<?php echo asset('app/app-admin.js') ; ?>"></script>   
 @yield('footer')
 </body>
 

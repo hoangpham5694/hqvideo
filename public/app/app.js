@@ -4,7 +4,7 @@ var app= angular.module('my-app', [] ,function($interpolateProvider) {
 
  
 
-}).constant('API', 'http://digovideo.dev/')
+}).constant('API', 'http://hqvideo.dev/')
   .directive('pwCheck', [function () {
     return {
       require: 'ngModel',

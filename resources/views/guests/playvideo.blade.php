@@ -2,7 +2,9 @@
 	<?php $title = $video->title ?>
 	@section('head')
 	<meta property="og:image" content="{!! asset('upload/images')!!}/{!! $video->image!!}" />
-<title>{{ $title }} - HQApps</title>
+	<meta property="og:title" content="{!! $video->title!!}">
+	<meta property="og:description" content="{!! $video->description!!}">
+<title>{{ $title }} - Video-HQApps</title>
 
  <script  src="<?php echo asset('template/js/jquery.min.js') ; ?>"> </script>
 
@@ -106,11 +108,11 @@
 				
 			
 				<span class="views" votes="164" score="0" title="Lượt xem"> <b> {{ $video->view}} </b></span>
-				<span class="comments"  title="Lượt comment"> <b><fb:comments-count href="{{url('xem-video')}}/{{$video->id}}/{{$video->slug}}.html"></fb:comments-count></b></span>
+				<span class="comments"  title="Lượt comment"> <b><fb:comments-count href="{{url('xem-video')}}/{{$video->slug}}.{{$video->id}}.html"></fb:comments-count></b></span>
 
 			</div>
 			<div class="facebook-btn">
-				<iframe src="https://www.facebook.com/plugins/like.php?href=http://cliphq.net/video/719&amp;width=450&amp;layout=standard&amp;action=like&amp;size=small&amp;show_faces=false&amp;share=false&amp;height=35&amp;appId" width="450" height="35" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+				<iframe src="https://www.facebook.com/plugins/like.php?href={{url('xem-video')}}/{{$video->slug}}.{{$video->id}}.html&amp;width=450&amp;layout=standard&amp;action=like&amp;size=small&amp;show_faces=false&amp;share=false&amp;height=35&amp;appId" width="450" height="35" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 			</div>
 		</div>
 	</div>
@@ -128,7 +130,7 @@
 
 <div id="comments">
 	<div class="commentfixed" style="width: 750px;">
-		<div class="fb-comments" data-href="http://cliphq.net/video/719" data-num-posts="5" data-width="750"></div>
+		<div class="fb-comments" data-href="{{url('xem-video')}}/{{$video->slug}}.{{$video->id}}.html" data-num-posts="5" data-width="750"></div>
 	</div>
 </div>
 
@@ -144,11 +146,13 @@
 					</a>
 				</div>
 				<div class="info stats">
-					<a href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" class="jump_stop">
+					<a ng-href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" class="jump_stop">
 						<h4 class="truncate">{%video.title%}</h4>
 					</a>
 					<span id="view_count" class="view" score="0" title="Lượt xem"> {% video.view %}</span>
-					<span id="comment_count" title="Lượt commetn"> 0</span>
+					<span id="comment_count" title="Lượt commetn">
+						<fb:comments-count href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html"></fb:comments-count>
+					</span>
 				</div>
 				<div class="clear"> </div>
 			</li>
