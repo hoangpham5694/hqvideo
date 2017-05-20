@@ -85,6 +85,7 @@ Route::group(['middleware'=>'isrolemanager'], function(){
                 Route::get('total',['uses'=>'VideoController@getTotalVideosAjax']);
                 Route::get('delete/{id}',['uses'=>'VideoController@getDeleteVideosAjax']);
                 Route::post('upload',['uses'=>'VideoController@postFileUploadAjax']);
+                Route::get('setstatus/{videoid}/{status}',['uses'=>'VideoController@getSetStatusAjax']);
             });
         });
 	});

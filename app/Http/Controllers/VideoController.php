@@ -19,6 +19,8 @@ use Intervention\Image\Facades\Image;
 use FFMpeg;
 use Psr\Logger\LoggerInterface;
 use DateTime;
+use Illuminate\Support\Facades\File;
+
 class VideoController extends Controller
 {
 	public function getVideoListManager()
@@ -125,11 +127,15 @@ class VideoController extends Controller
         $file = $request->file('fileVideo');
      //   dd(strlen($file));
         if(strlen($file) >0){
-            $filename = "hqapp_net.".$file->getClientOriginalExtension();;
-            $destinationPath = 'upload/videos/'.time().'_'.str_slug($file->getClientOriginalName(), "-");
+            $filename = "hqapps_net.".$file->getClientOriginalExtension();
+            $folderName= time().'_'.str_slug($file->getClientOriginalName(), "-");
+            $destinationPath = 'upload/videos/'.$folderName;
+            $urlDrive = "";
+            // $file->move($destinationPath,$filename);
+           Storage::disk('google')->put($folderName.$filename,   File::get($file) );
+           $urlDrive = Storage::disk('google')->url($folderName.$filename);
+          //  fopen($file, 'r+');
             $file->move($destinationPath,$filename);
-         //  Storage::disk('google')->put($filename,  fopen($file, 'r+'));
-         //  $url = Storage::disk('google')->url($filename);
             $ffprobe = FFMpeg\FFProbe::create(
                 [
                  'ffmpeg.binaries'  => '/usr/bin/ffmpeg',
@@ -155,7 +161,7 @@ class VideoController extends Controller
             $returnDuration = $min.':'.$sec;
 
 
-        return json_encode(['url'=>asset($destinationPath).'/'.$filename,'duration'=>$returnDuration]);
+        return json_encode(['url'=>asset($destinationPath).'/'.$filename,'duration'=>$returnDuration,'url_drive'=>$urlDrive]);
 
 
 
@@ -194,13 +200,14 @@ class VideoController extends Controller
     {
     	$video = Video::findOrFail($id);
 
-    
+        
     	$video->title = $request->txtTitle;
     	$video->slug =str_slug($request->txtTitle, "-");
     	$video->description = $request->txtDescription;
 
     	$video->url=$request->txtUrl;
-		
+        $videp->url_drive = $request->txtUrlDrive;
+		$video->status= $request->sltStatus;
 		//dd($cates);
         $file = $request->file('fileImage');
         if(strlen($file) >0){
@@ -289,6 +296,14 @@ class VideoController extends Controller
         return json_encode($video);
     }
 
+
+    public function getSetStatusAjax($videoid, $status)
+    {
+         $video = Video::findOrFail($videoid);
+         $video->status = $status;
+         $video->save();
+         return "Set status: ".$status;
+    }
 
 
 

@@ -6,5 +6,11 @@
 	
 	@endsection
 @section('content')
-<h1>{{$message}}</h1>
+<h1>
+	@if(isset($message))
+		{{$message}}
+	@else
+		Error! 404 Not found.
+	@endif
+</h1>
 @endsection

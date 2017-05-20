@@ -36,6 +36,7 @@ app.controller('VideoListController', function($scope, $http, API,$timeout){
 	getListVideos(maxRecord,1);
 	$scope.changePage = function(page){
 		getListVideos(maxRecord,page);
+		$scope.page= page;
 	}
 	$scope.changeCate = function(){
 		getListVideos(maxRecord,1);
@@ -63,6 +64,19 @@ app.controller('VideoListController', function($scope, $http, API,$timeout){
 	}
 	$scope.changeStatus = function() {
 		getListVideos(maxRecord,1);
+	}
+	$scope.setStatus = function(id,status){
+		var url=API + "managersites/video/ajax/setstatus/"+id+"/"+status;
+		console.log(url);
+		$http.get(url).then(function successCallback (response){
+			getListVideos(maxRecord,$scope.page);
+			console.log(response.data);
+		}  , function errorCallback(response) {
+			console.log(response);
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  		}) ;
+		
 	}
 
 

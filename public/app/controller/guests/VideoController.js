@@ -25,21 +25,7 @@ app.controller('VideoController', function($scope ,$http,$location, API){
     // or server returns response with an error status.
   		}) ;
 	}
-/*	var getAppHot = function(url){
-		$http.get(url).then(function successCallback (response){
-		console.log(response);
-		$scope.datahot =  response.data;
-		if(response.data.length < 12){
-  			pagehot--;
-  			$scope.message = "Hết dữ liệu vui lòng quay lại";
-  		}
-		}  , function errorCallback(response) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
-  		}) ;
-	}	
 
-*/
 
 	var getVideoRandom = function(){
 		var url = API+'guest-ajax/randomvideo/6';
@@ -83,33 +69,7 @@ app.controller('VideoController', function($scope ,$http,$location, API){
     // or server returns response with an error status.
   		}) ;
 	}
-	
-/*	var getList5New = function(){
-		$http.get(API+'list5new').then(function successCallback (response){
-		console.log(response);
-		$scope.data5New =  response.data;
-		
-		}  , function errorCallback(response) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
-  		}) ;
-	}
-	var getLastApp = function(){
-		$http.get(API+'lastapp').then(function successCallback (response){
-		console.log(response);
-		$scope.dataLastApp =  response.data;
-		
-		}  , function errorCallback(response) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
-  		}) ;
-	}
-	*/
-	//getLastApp();
-	//getList5New();
 
-	
-	//$scope.name="hoang";
 	console.log(page);
 //	getVideos();
 //	getVideoRandom();
