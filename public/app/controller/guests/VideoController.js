@@ -42,11 +42,39 @@ app.controller('VideoController', function($scope ,$http,$location, API){
 */
 
 	var getVideoRandom = function(){
-		var url = API+'guest-ajax/randomvideo/10';
+		var url = API+'guest-ajax/randomvideo/6';
 		console.log(url);
 		$http.get(url).then(function successCallback (response){
 		console.log(response);
 		$scope.dataRandom =  response.data;
+		if(response.data.length < 10){
+  			
+  		}
+		}  , function errorCallback(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  		}) ;
+	}
+	var getVideoHot = function(){
+		var url = API+'guest-ajax/hotvideo/3';
+		console.log(url);
+		$http.get(url).then(function successCallback (response){
+		console.log(response);
+		$scope.dataHot =  response.data;
+		if(response.data.length < 10){
+  			
+  		}
+		}  , function errorCallback(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  		}) ;
+	}
+	var getVideoNew = function(){
+		var url = API+'guest-ajax/newvideo/3';
+		console.log(url);
+		$http.get(url).then(function successCallback (response){
+		console.log(response);
+		$scope.dataNew =  response.data;
 		if(response.data.length < 10){
   			
   		}
@@ -89,8 +117,18 @@ app.controller('VideoController', function($scope ,$http,$location, API){
 		$scope.cateid=cateid;
 		getVideos();
 	}
-	$scope.getRandomVideo = function(){
-		getVideoRandom();
+	$scope.getSideBarVideo = function(state){
+		switch(state){
+			case "new":
+				getVideoNew();
+			break;
+			case "hot":
+				getVideoHot();
+			break;
+			case "random":
+				getVideoRandom();
+			break;
+		}
 	}
 	$scope.nextpage = function(state){
 

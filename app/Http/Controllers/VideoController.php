@@ -18,6 +18,7 @@ use Google_Service_Drive;
 use Intervention\Image\Facades\Image;
 use FFMpeg;
 use Psr\Logger\LoggerInterface;
+use DateTime;
 class VideoController extends Controller
 {
 	public function getVideoListManager()
@@ -275,9 +276,16 @@ class VideoController extends Controller
     public function getHotVideosAjax($number)
     {
         $numberRecord = $number;
+
+      //  $date = new DateTime();
+     //   $date->add(DateInterval::createFromDateString('yesterday'));
+
+      //  echo date("Y-m-d",strtotime("-30 days")) . "\n";
+
         $video = Video::select('id','title','description','slug','view','share','image','url','created_at')
         ->where('status','=','active')
-        ->limit($numberRecord)->offset(0)->orderBy('view','DESC')->get();;
+        ->where('created_at','>=',date("Y-m-d",strtotime("-30 days")))
+        ->limit($numberRecord)->offset(0)->orderBy('view','DESC')->get();
         return json_encode($video);
     }
 

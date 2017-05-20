@@ -198,8 +198,8 @@
 </div>
 <div class="col-md-4" ng-controller="VideoController">
 	<div class="right-ovui videonew">
-		<ul id="new-videos" data-ng-init="getRandomVideo()">
-			<li class="right-p" ng-repeat="video in dataRandom">
+		<ul id="new-videos" data-ng-init="getSideBarVideo('new')">
+			<li class="right-p" ng-repeat="video in dataNew">
 				<div class="mask">
 					<a href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" class="jump_stop">
 						<img class="thumb" ng-src="{{asset('upload/images/133x70')}}/{%video.image%}">
@@ -220,7 +220,58 @@
 
 		</ul>
 	</div>
+	<div class="right-ovui videohot">
+		<ul id="new-videos" data-ng-init="getSideBarVideo('hot')">
+			<li class="right-p" ng-repeat="video in dataHot">
+				<div class="mask">
+					<a href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" class="jump_stop">
+						<img class="thumb" ng-src="{{asset('upload/images/133x70')}}/{%video.image%}">
+						<div class="hot">Hot</div>
+					</a>
+				</div>
+				<div class="info stats">
+					<a ng-href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" class="jump_stop">
+						<h4 class="truncate">{%video.title%}</h4>
+					</a>
+					<span id="view_count" class="view" score="0" title="Lượt xem"> {% video.view %}</span>
+					<span id="comment_count" title="Lượt commetn">
+						<fb:comments-count href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html"></fb:comments-count>
+					</span>
+				</div>
+				<div class="clear"> </div>
+			</li>
+
+		</ul>
+	</div>
+	<div class="right-ovui videohot">
+		<ul id="new-videos" data-ng-init="getSideBarVideo('random')">
+			<li class="right-p" ng-repeat="video in dataRandom">
+				<div class="mask">
+					<a href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" class="jump_stop">
+						<img class="thumb" ng-src="{{asset('upload/images/133x70')}}/{%video.image%}">
+						
+					</a>
+				</div>
+				<div class="info stats">
+					<a ng-href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html" class="jump_stop">
+						<h4 class="truncate">{%video.title%}</h4>
+					</a>
+					<span id="view_count" class="view" score="0" title="Lượt xem"> {% video.view %}</span>
+					<span id="comment_count" title="Lượt commetn">
+						<fb:comments-count href="{{url('xem-video')}}/{%video.slug%}.{%video.id%}.html"></fb:comments-count>
+					</span>
+				</div>
+				<div class="clear"> </div>
+			</li>
+
+		</ul>
+	</div>
+
 </div>
+
+
+
+
 
 </div>
 
