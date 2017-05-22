@@ -2,7 +2,7 @@ app.controller('VideoController', function($scope ,$http,$location, API){
 	var page = 1;
 	$scope.page = page;
 	$scope.end= true;
-	var maxRecord = 20 	;
+	var maxRecord = 3 	;
 	$scope.maxRecord = maxRecord;
 	$scope.cateid = "";
 	$scope.status = "active";

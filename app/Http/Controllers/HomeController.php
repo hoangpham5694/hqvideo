@@ -32,7 +32,7 @@ class HomeController extends Controller
     public function getListVideoWithCate($cateslug, $cateid)
     {
         $cate = Category::findOrFail($cateid);
-        return view('guests.listvideo',['cate'=>$cate]);
+        return view('guests.index',['cate'=>$cate]);
     }
     
 }

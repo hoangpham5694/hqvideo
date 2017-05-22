@@ -82,6 +82,7 @@ class VideoController extends Controller
     	$video->view=0;
     	$video->share=0;
     	$video->url=$request->txtUrl;
+        $video->url_drive=$request->txtUrlDrive;
 		$video->created_by= $user->id;
 		$cates = $request->cblCate;
         $video->status = "pending";
@@ -95,14 +96,14 @@ class VideoController extends Controller
             $file->move($destinationPath,$filename);
          //   $img = Image::make($destinationPath.'/'.$filename);
 
-            $img->resize(200, 124);
-            $img->save($destinationPath.'/200x124/'.$filename);
-            $img->resize(260, 137);
-            $img->save($destinationPath.'/260x137/'.$filename);
-            $img->resize(107, 57);
-            $img->save($destinationPath.'/107x57/'.$filename);
-            $img->resize(133, 70);
-            $img->save($destinationPath.'/133x70/'.$filename);
+            $img->resize(800, 420);
+            $img->save($destinationPath.'/800x420/'.$filename);
+            $img->resize(316, 166);
+            $img->save($destinationPath.'/316x166/'.$filename);
+            $img->resize(300, 157);
+            $img->save($destinationPath.'/300x157/'.$filename);
+            $img->resize(198, 104);
+            $img->save($destinationPath.'/198x104/'.$filename);
             $video->image= $filename;
         }
         
@@ -206,7 +207,7 @@ class VideoController extends Controller
     	$video->description = $request->txtDescription;
 
     	$video->url=$request->txtUrl;
-        $videp->url_drive = $request->txtUrlDrive;
+        $video->url_drive = $request->txtUrlDrive;
 		$video->status= $request->sltStatus;
 		//dd($cates);
         $file = $request->file('fileImage');
@@ -217,14 +218,14 @@ class VideoController extends Controller
             $file->move($destinationPath,$filename);
          //   $img = Image::make($destinationPath.'/'.$filename);
 
-            $img->resize(200, 124);
-            $img->save($destinationPath.'/200x124/'.$filename);
-            $img->resize(260, 137);
-            $img->save($destinationPath.'/260x137/'.$filename);
-            $img->resize(107, 57);
-            $img->save($destinationPath.'/107x57/'.$filename);
-            $img->resize(133, 70);
-            $img->save($destinationPath.'/133x70/'.$filename);
+            $img->resize(800, 420);
+            $img->save($destinationPath.'/800x420/'.$filename);
+            $img->resize(316, 166);
+            $img->save($destinationPath.'/316x166/'.$filename);
+            $img->resize(300, 157);
+            $img->save($destinationPath.'/300x157/'.$filename);
+            $img->resize(198, 104);
+            $img->save($destinationPath.'/198x104/'.$filename);
             $video->image= $filename;
         }
 		$video->duration = $request->txtDuration;
@@ -253,10 +254,10 @@ class VideoController extends Controller
       //  dd($cates);
         return view('managers.videos.detail',['video'=>$video,'cates'=>$cates]);
     }
-    public function getViewVideoManager($id)
+    public function getViewVideoManager($id, $url)
     {
         $video = Video::findOrFail($id);
-        return view('managers.videos.viewvideo',['video'=>$video]);
+        return view('managers.videos.viewvideo',['video'=>$video,'url'=>$url]);
     }
 
     public function getTest()
