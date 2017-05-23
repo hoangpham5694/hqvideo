@@ -96,6 +96,13 @@
            
                             <!-- /.nav-second-level -->
                         </li>
+                                                     <li>
+                            <a href="{{ url('managersites/video/checkprocess') }}">
+                           
+                                Check process</a>
+           
+                            <!-- /.nav-second-level -->
+                        </li>
 
 
                     </ul>

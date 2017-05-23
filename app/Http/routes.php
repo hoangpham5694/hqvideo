@@ -13,9 +13,9 @@
 
 Route::get('/', ['uses' => 'HomeController@getIndex']);
 
-Route::get('{cateslug}.{cateid}', ['uses' => 'HomeController@getListVideoWithCate']);
+Route::get('danh-muc/{cateslug}.{cateid}', ['uses' => 'HomeController@getListVideoWithCate']);
 Route::get('viewvideo/{id}', ['uses' => 'HomeController@getViewVideo']);
-Route::get('video/{alias}.{id}', ['uses' => 'HomeController@getPlayVideo']);
+Route::get('{alias}.{id}', ['uses' => 'HomeController@getPlayVideo']);
 Route::get('testupload', function() {
     return view('guests.master1');
 });
@@ -80,6 +80,8 @@ Route::group(['middleware'=>'isrolemanager'], function(){
             Route::post('upload',['uses'=>'VideoController@postUpload']);
             Route::get('detail/{id}',['uses'=>'VideoController@getDetailVideoManager']);
             Route::get('viewvideo/{id}/{url}',['uses'=>'VideoController@getViewVideoManager']);
+            Route::get('checkprocess',['uses'=>'VideoController@getCheckProcess']);
+            
             Route::group(['prefix' => 'ajax'], function(){
                 Route::get('list/{max}/{page}',['uses'=>'VideoController@getVideoListAjax']);
                 Route::get('total',['uses'=>'VideoController@getTotalVideosAjax']);

@@ -1,5 +1,6 @@
 	@extends((is_mobile()) ? 'guests.master-m' : 'guests.master1')
 	<?php $title = $video->title ?>
+	<?php $domain = "http://hqapps.net/"; ?>
 	@section('head')
 	<title>{{ $title }} - Video-HQApps</title>
 	<meta property="og:url" content="{{url('video')}}/{{$video->slug}}.{{$video->id}}.html"/>
@@ -17,9 +18,9 @@
 	@endsection
 	@section('content')
 		<script>
-			var lantoa_video_start = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=2246899727&videoad_start_delay=0&hl=vi&max_ad_duration=15000";
-			var lantoa_video_pause = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=3723632924&videoad_start_delay=10000&hl=vi&max_ad_duration=15000";
-			var lantoa_video_end = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=5200366125&videoad_start_delay=-1&hl=vi&max_ad_duration=15000";
+			var video_start = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=2246899727&videoad_start_delay=0&hl=vi&max_ad_duration=15000";
+			var video_pause = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=3723632924&videoad_start_delay=10000&hl=vi&max_ad_duration=15000";
+			var video_end = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=5200366125&videoad_start_delay=-1&hl=vi&max_ad_duration=15000";
 			var opt = {
 				id: 'video_player',
 				key: "OTdiNmUyMTk1ZGM4MTU4YzYzN2ZiNmJhM2Q5NmZkYjBhYzIzYjc2MTBiZjc5Y2QxYmRiYzEzODQwYmJhYWFjZQ==",
@@ -36,27 +37,27 @@
 				responsive: true,
 				mobileNativeControl: false,
 				title: "{!! $video->title!!}",
-				poster: "{{ asset('upload/images/260x137')}}/{!! $video->image !!}",
+				poster: "{{ asset('upload/images/316x166')}}/{!! $video->image !!}",
 				name: "Lantoa.net",
 				site_url: "http://video.hqapps.net/",
 				video_url: "http://videos.hqapps.net/",
 				//embed_url: "",
-				logo: "http://Theme::asset.lantoa.net/assets/img/logo.png",
+				logo: "http://hqapps.net/public/images/logo.png",
 				adLabel: "Quảng cáo",
 				isAds: true,
 				pre: {
 					status: true,
-					tag: lantoa_video_start,
+					tag: video_start,
 					forceNonLinearFullSlot: true,
 				},
 				// mid: {
 					// status: true,
-					// tag: lantoa_video_pause,
+					// tag: video_pause,
 					// forceNonLinearFullSlot: true,
 				// },
 				post: {
 					status: true,
-					tag: lantoa_video_end,
+					tag: video_end,
 					forceNonLinearFullSlot: true,
 				},
 				
@@ -79,86 +80,169 @@
 				TE.createPlayer(opt);
 			};
 		</script>
-		<h2>{!! $video->title!!}</h2>
 		@if(is_mobile())
-			<div class="rubric-title">Đang hot</div>
-			<div id="organic-below-article"  data-ng-init="getSideBarVideo('hot')">
-				<div class="organiccontainer">
-					<div class="organicelement third" ng-repeat="video in dataHot">
-						<a href="{{url('video')}}/{%video.slug%}.{%video.id%}.html">
-							<div class="organicpic third">
-								<img src="{{asset('upload/images/316x166')}}/{%video.image%}">
-							</div>
-							<div class="organictitle third">{%video.title%}</div>
-						</a>
-					</div>
-					
+			<div class="video-meta">
+				<div class="headline">
+					<h2 class="video-headline">{!! $video->title!!}</h2>
+					<span class="views">{!! $video->view!!} lượt xem</span>
 				</div>
-			</div>
-			<div class="rubric-title">Bạn có thể thích</div>
-			<div id="organic-below-article" data-ng-init="getSideBarVideo('random')">
-				<div class="organiccontainer" ng-repeat="video in dataRandom">
-					<div class="organicelement third" ng-repeat="video in dataRandom">
-						<a href="{{url('video')}}/{%video.slug%}.{%video.id%}.html">
-							<div class="organicpic third">
-								<img class="lazy" data-original="{{asset('upload/images/316x166')}}/{%video.image%}">
-							</div>
-							<div class="organictitle third">{%video.title%}</div>
-						</a>
+				<div class="plugins">
+					<div class="like">
+						<div class="fb-like" data-href="{{$domain}}video/{{$video->slug}}.{{$video->id}}.html" data-layout="button" data-action="like" data-size="small" data-share="true"></div>
 					</div>
 				</div>
-				<div id="last"></div>
+				<div class="description">
+					<span class="date">Xuất bản: {!! $video->created_at !!}</span>
+					{!! $video->description!!}
+				</div>
 			</div>
-			<div style="padding-bottom:10px" id="load-more">
-				<div id="loadMoreQuizz"><span class="loading"></span></div>
-				<div class="btn btn-lg btn-info btn-block"> Nhiều hơn </div>
-			</div>
+			<aside class="related" data-ng-init="getSideBarVideo('random')">
+				<div class="pannel">
+					<div class="pannel-body">
+						<ul class="list-unstyled">
+							<a href="{{$domain}}video{%video.slug%}.{%video.id%}.html" ng-repeat="video in dataRandom"><li class="media pannel-item">
+								<div class="related-thumb ">
+									<img class="img-responsive" src="{{asset('upload/images/316x166')}}/{%video.image%}" alt="{%video.title%}">
+									<span class="duration">{%video.duration%}</span>
+								</div>
+								<div class="media-body">
+									<h5 class="">{%video.title%}</h5>
+									<span class="views">{%video.view%} lượt xem</span>
+								</div>
+							</li></a>
+							
+							<hr/>
+						</ul>
+					</div>
+					<!-- <div class="pannel-footer">
+						<button type="button" class="btn btn-primary btn-block ajax-loadmore">Load more</button>
+					</div> -->
+					<div class="comments">
+						<div class="comments-header">
+							<h2 class="show-comments">
+								<b>Comments</b>
+							</h2>
+						</div>
+						<div id="comment-body">
+							
+						</div>
+					</div>
+				</div>
+			</aside>
+			
 
 	                @else
-		<div class="rubric-title">Mới nhất</div>
-	                    <div id="organic-below-article" data-ng-init="getSideBarVideo('random')">
-	                        <div class="organiccontainer">
-	                            <div class="organicelement third" ng-repeat="video in dataRandom">
-	                                <a href="{{url('video')}}/{%video.slug%}.{%video.id%}.html">
-	                                    <div class="organicpic third">
-	                                        <img  src="{{asset('upload/images/316x166')}}/{%video.image%}" width="198" height="104">
-	                                    </div>
-	                                    <div class="organictitle third">{%video.title%}</div>
-	                                </a>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="rubric-title">Bạn có thể thích</div>
-	                    <div id="organic-below-article" data-ng-init="getSideBarVideo('random')">
-	                        <div class="organiccontainer">
-	                            <div class="organicelement third" ng-repeat="video in dataRandom">
-	                                <a href="{{url('video')}}/{%video.slug%}.{%video.id%}.html">
-	                                    <div class="organicpic third">
-	                                        <img class="lazy" data-original="{{asset('upload/images/316x166')}}/{%video.image%}" width="198" height="104">
-	                                    </div>
-	                                    <div class="organictitle third">{%video.title%}</div>
-	                                </a>
-	                            </div>
-	                        </div>
-	                        <div style="padding-bottom:10px" id="load-more">
-	                            <div id="loadMoreQuizz"><img src="{{ asset('images/quizloader3.gif') }}"></div>
-	                            <div class="btn btn-lg btn-info btn-block">Nhiều hơn </div>
-	                        </div>
-	                    </div>
-                </div>
-            <div id="sidebar"  data-ng-init="getSideBarVideo('hot')">
-                <div class="rubric-title">Hot nhất</div>
-                <div id="organic-below-article">
-                    <div class="organiccontainer">
-                        <div class="organicelement" ng-repeat="video in dataHot">
-                            <a href="{{url('video')}}/{%video.slug%}.{%video.id%}.html">
-                                <div class="organicpic" style="background-image: url({{asset('upload/images/316x166')}}/{%video.image%});background-repeat: no-repeat;width:300px"></div>
-                                <div class="organictitle">{%video.title%}</div>
-                            </a>
-                        </div>
-                        
-                    </div>
-                </div>
+			<div class="col-md-8 col-xs-12 main p-xs-0">
+					<!-- START PLAYER -->
+					<div class="row player">
+						<div id='teplayer' class='te-player-container'></div>
+						<script>
+							var video_start = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=2246899727&videoad_start_delay=0&hl=vi&max_ad_duration=15000";
+							var video_pause = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=3723632924&videoad_start_delay=10000&hl=vi&max_ad_duration=15000";
+							var video_end = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-4629886296503257&description_url=http%3A%2F%2Flantoa.net&channel=5200366125&videoad_start_delay=-1&hl=vi&max_ad_duration=15000";
+							var opt = {
+								id: 'video_player',
+								key: "OTdiNmUyMTk1ZGM4MTU4YzYzN2ZiNmJhM2Q5NmZkYjBhYzIzYjc2MTBiZjc5Y2QxYmRiYzEzODQwYmJhYWFjZQ==",
+								locale: "vi",
+								theme: "white", //default, black, red, white, yellow, green, dark-green, blue, dark-blue, pink
+								sources: [
+								  {
+									src: "{!! $video->url !!}",
+									type: "video/mp4",
+								  }
+								],
+								width: '779',
+								<?php echo (is_mobile() ?  "height:'799'," :  "height:'449',");?>
+								responsive: true,
+								mobileNativeControl: false,
+								title: "{!! $video->title!!}",
+								poster: "{{ asset('upload/images/800x420')}}/{!! $video->image !!}",
+								name: "Lantoa.net",
+								site_url: "http://video.hqapps.net/",
+								video_url: "http://videos.hqapps.net/",
+								//embed_url: "",
+								logo: "http://hqapps.net/public/images/logo.png",
+								adLabel: "Quảng cáo",
+								isAds: true,
+								pre: {
+									status: true,
+									tag: video_start,
+									forceNonLinearFullSlot: true,
+								},
+								// mid: {
+									// status: true,
+									// tag: video_pause,
+									// forceNonLinearFullSlot: true,
+								// },
+								post: {
+									status: true,
+									tag: video_end,
+									forceNonLinearFullSlot: true,
+								},
+								
+								controls_videos: true,
+								//last_videos: true,
+								videos_type: "default",
+								autoPlay: true, 
+								engageya: {
+									pubid: 169635,
+									wid: 94977,
+									webid: 137609
+								},
+								//video_items: 8,
+								mobile_theme: true,
+								debug: true
+
+							};
+
+							window.onload = function() {
+								TE.createPlayer(opt);
+							};
+						</script>
+					</div>
+					<!-- END PLAYER -->
+					<!-- START META -->
+					<div class="row video-meta">
+						<div class="headline">
+							<h2 class="video-headline">{!! $video->title!!}</h2>
+						</div>
+						<span class="date">Xuất bản: {!! $video->created_at!!}</span>
+						<div class="description">
+							{!! $video->description!!}
+						</div>
+					</div>
+					<!-- END META -->
+					<!-- START COMMENT -->
+					<div class="row comments">
+						<h2>Comments</h2>
+						<div class="fb-comments" data-href="{{$domain}}video/{{$video->slug}}.{{$video->id}}.html" data-width="100%" data-numposts="3"></div>
+					</div>
+					<!-- END COMMENT -->
+				</div>
+				<!-- END MAIN -->
+				<aside class="col-md-4 col-xs-12 sidebar">
+					<div class="pannel">
+						<div class="pannel-header">
+							<h2 class="pannel-title">Related</h2>
+						</div>
+						<div class="pannel-body" data-ng-init="getSideBarVideo('random')">
+							<ul class="list-unstyled">
+								<a href="{{$domain}}video/{%video.slug%}.{%video.id%}.html" ng-repeat="video in dataRandom"><li class="media pannel-item">
+									<img class="d-flex col-md-5 img-responsive" src="{{asset('upload/images/316x166')}}/{%video.image%}" alt="{%video.title%}">
+									<div class="col-md-7 media-body">
+										<h5 class="">{%video.title%}</h5>
+										<span class="views">{%video.view%} lượt xem</span>
+									</div>
+								</li></a>
+								
+								<hr/>
+							</ul>
+						</div>
+						<!-- <div class="pannel-footer">
+							<button type="button" class="btn btn-primary btn-block ajax-loadmore">Load more</button>
+						</div> -->
+					</div>
+				</aside>
 	                @endif
 
 @endsection
@@ -188,6 +272,7 @@
 		setTimeout(function(){
 			$("img.lazy").lazyload({thresshold:100,failure_limit:10}).removeClass("lazy").addClass("lazyloaded")
 		},1200);
+		
 	});
 
 </script>

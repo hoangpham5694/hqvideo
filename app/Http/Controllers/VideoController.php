@@ -47,7 +47,7 @@ class VideoController extends Controller
    //     ->leftjoin('categories','categories.id','=','video_cate.cate_id')
         ->join('users','users.id','=','videos.created_by')
     	
-    	->select('videos.id','videos.slug','videos.duration','videos.image','users.firstname','videos.created_at','users.lastname','users.username','videos.title','videos.url','videos.status','videos.view','videos.share')
+    	->select('videos.id','videos.slug','videos.duration','videos.image','users.firstname','videos.created_at','users.lastname','users.username','videos.title','videos.url','videos.url_drive','videos.status','videos.view','videos.share')
         ->where(function($query) use ($keyword){
             $query->where('videos.title','LIKE','%'.$keyword.'%');
         })
@@ -57,7 +57,7 @@ class VideoController extends Controller
     	->orderBy('videos.id','DESC')	
     	->groupBy('videos.id')
     	->get();
-    	return $videos;
+    	return json_encode($videos);
 	}
 	public function getTotalVideosAjax()
 	{
@@ -269,7 +269,9 @@ class VideoController extends Controller
     public function getRandomVideosAjax($number)
     {
         $numberRecord = $number;
-        $video = Video::select('id','title','description','slug','view','share','image','url','created_at')->inRandomOrder()->limit($numberRecord)->offset(0)->get();;
+        $video = Video::select('id','title','description','slug','view','share','image','url','duration','created_at')
+        ->where('status','=','active')
+        ->inRandomOrder()->limit($numberRecord)->offset(0)->get();;
         return json_encode($video);
     }
 
@@ -306,6 +308,10 @@ class VideoController extends Controller
          return "Set status: ".$status;
     }
 
+    public function getCheckProcess()
+    {
+        return view('managers.videos.checkprocessing');
+    }
 
 
 
